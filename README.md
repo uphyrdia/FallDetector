@@ -1,4 +1,4 @@
-# FallDetector — ElderCare Wearable Safety Companion
+# CG2028 — ElderCare Wearable Safety Companion
 
 Bare-metal C and ARM Thumb assembly firmware for the **B-L4S5I-IOT01A** Discovery board (STM32L4S5VIT6, Cortex-M4). Detects falls and prolonged stillness using the onboard LSM6DSL IMU, signals alarms locally, and uploads event telemetry to ThingsBoard.
 
