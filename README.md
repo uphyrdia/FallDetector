@@ -1,4 +1,4 @@
-# CG2028 — ElderCare Wearable Safety Companion
+# FallDetector — ElderCare Wearable Safety Companion
 
 Bare-metal C and ARM Thumb assembly firmware for the **B-L4S5I-IOT01A** Discovery board (STM32L4S5VIT6, Cortex-M4). Detects falls and prolonged stillness using the onboard LSM6DSL IMU, signals alarms locally, and uploads event telemetry to ThingsBoard.
 
@@ -34,7 +34,7 @@ Local detection remains available without a network. Uploads block sampling and 
 
 ## Build and run
 
-1. Import this folder as an existing project in **STM32CubeIDE**. HAL, CMSIS, and BSP sources are included.
+1. Import the `FallDetector` folder as an existing project in **STM32CubeIDE**. If an older project is already imported, remove its workspace entry without deleting its files, then import this renamed folder. HAL, CMSIS, and BSP sources are included.
 2. For telemetry, set Wi-Fi credentials and the device token/host in `Core/Inc/thingsboard.h`. An empty SSID or token skips networking; keep credentials private.
 3. Select the **Debug build configuration** and build. The tracked `.project`/`.cproject` files include the Wi-Fi headers and floating-point `printf` support. Connect the board through its ST-LINK USB port and create the local debug launch below to flash/run.
 4. Open the ST-LINK virtual COM port at **115200 baud, 8N1, no flow control**. Observe readings and LED2; hold USER to clear a latched alarm.
@@ -45,8 +45,8 @@ The `.launch` file and two generated OpenOCD `.cfg` files are intentionally igno
 
 | Setting | Value |
 | --- | --- |
-| Project / build | `CG2028_Assignment` / `Debug`; build before launch. |
-| Application | `Debug/CG2028_Assignment.elf`. |
+| Project / build | `FallDetector` / `Debug`; build before launch. |
+| Application | `Debug/FallDetector.elf`. |
 | Target | B-L4S5I-IOT01A / STM32L4S5VITx. |
 | Debug probe / interface | **ST-LINK (ST-LINK GDB server)** / **SWD**, automatic/default frequency. |
 | Server / debugger | Start local server; GDB port `61234`; `arm-none-eabi-gdb`. |
