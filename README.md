@@ -36,8 +36,23 @@ Local detection remains available without a network. Uploads block sampling and 
 
 1. Import this folder as an existing project in **STM32CubeIDE**. HAL, CMSIS, and BSP sources are included.
 2. For telemetry, set Wi-Fi credentials and the device token/host in `Core/Inc/thingsboard.h`. An empty SSID or token skips networking; keep credentials private.
-3. Select **Debug**, build, and flash through the board's ST-LINK USB connection. The supplied Debug configuration includes the Wi-Fi headers and floating-point `printf` support.
+3. Select the **Debug build configuration** and build. The tracked `.project`/`.cproject` files include the Wi-Fi headers and floating-point `printf` support. Connect the board through its ST-LINK USB port and create the local debug launch below to flash/run.
 4. Open the ST-LINK virtual COM port at **115200 baud, 8N1, no flow control**. Observe readings and LED2; hold USER to clear a latched alarm.
+
+### Local debug configuration
+
+The `.launch` file and two generated OpenOCD `.cfg` files are intentionally ignored. On a fresh clone, open **Run → Debug Configurations → STM32 C/C++ Application**, create a configuration, and use:
+
+| Setting | Value |
+| --- | --- |
+| Project / build | `CG2028_Assignment` / `Debug`; build before launch. |
+| Application | `Debug/CG2028_Assignment.elf`. |
+| Target | B-L4S5I-IOT01A / STM32L4S5VITx. |
+| Debug probe / interface | **ST-LINK (ST-LINK GDB server)** / **SWD**, automatic/default frequency. |
+| Server / debugger | Start local server; GDB port `61234`; `arm-none-eabi-gdb`. |
+| Reset / startup | Software system reset; download executable and symbols; stop at `main`. |
+
+Click **Debug** to flash and halt at `main`, then **Resume** to run. OpenOCD is an alternative: select **ST-LINK (OpenOCD)** and automatic configuration generation for this target (SWD, 8000 kHz, software system reset, GDB port `3333`); CubeIDE generates the `.cfg` locally. The previous scripts enabled low-power debugging and stopped watchdogs while halted. No copied machine-specific paths are required.
 
 Tune thresholds, EWMA weights, and reporting in `Core/Src/main.c`. Set `REPORT_DISABLE=1` to suppress routine readings and `SAMPLE_TIMING_ENABLE=1` to measure loop timing. The 2 ms pacing delay does **not** establish a fixed sample rate: sensor ODR is 208 Hz, but acquisition is polling-based and UART/network work adds latency. I2C read failures retain the previous readings.
 

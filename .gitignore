@@ -1,2 +1,7 @@
 Debug/
 .settings/language.settings.xml
+
+# Local STM32CubeIDE debug launch and generated OpenOCD settings
+/CG2028_Assignment Debug.cfg
+/CG2028_Assignment Debug.launch
+/CG2028_Assignment.cfg
